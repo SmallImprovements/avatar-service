@@ -8,3 +8,4 @@ deploy:
   provider: gae
   keyfile: client-secret.json
   project: micro-test-small-improvements
+  no_promote: true
