@@ -19,6 +19,15 @@ const requestLogger = expressWinston.logger({
     meta: false,
 });
 
+const errorLogger = expressWinston.errorLogger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: false,
+        }),
+    ],
+});
+
 app.use(requestLogger);
 
 app.get('/:index/:initials.svg', function(req, res) {
@@ -30,6 +39,8 @@ app.get('/:index/:initials.svg', function(req, res) {
     }
     res.type('image/svg+xml').send(avatar(initials, avatarColor));
 });
+
+app.use(errorLogger);
 
 app.listen(port, function() {
     console.log('App is running');
