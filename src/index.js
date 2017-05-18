@@ -30,6 +30,10 @@ const errorLogger = expressWinston.errorLogger({
 
 app.use(requestLogger);
 
+app.get('/error', function(req, res) {
+    throw new Error('boom');
+});
+
 app.get('/:index/:initials.svg', function(req, res) {
     const { initials, index } = req.params;
     const avatarColor = color(index);
