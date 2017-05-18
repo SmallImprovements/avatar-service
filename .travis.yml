@@ -1,0 +1,3 @@
+before_install:
+- openssl aes-256-cbc -K $encrypted_a548230573da_key -iv $encrypted_a548230573da_iv
+  -in client-secret.json.enc -out client-secret.json -d
