@@ -1,7 +1,8 @@
 {
   "name": "avatar-service",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "echo 'No tests yet.'"
   },
   "dependencies": {
     "express": "^4.15.3"
