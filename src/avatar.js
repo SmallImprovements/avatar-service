@@ -1,6 +1,17 @@
+const path = require('path');
+const textToSVG = require('text-to-svg').loadSync(path.resolve(__dirname, 'font.woff'));
 const SIZE = 400;
+const FONT_SIZE = SIZE * 0.5;
 
-module.exports = (initials, color) =>
+const text = initials =>
+    textToSVG.getPath(initials, {
+        x: FONT_SIZE,
+        y: FONT_SIZE,
+        fontSize: FONT_SIZE,
+        anchor: 'center middle',
+        attributes: { fill: '#FFFFFF' },
+    });
+const svg = (text, color) =>
     `<svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
@@ -13,14 +24,7 @@ module.exports = (initials, color) =>
                 fill="${color || '#ffeeee'}"
                 stroke-width="0"
             />
-            <text
-                x="50%"
-                y="68%"
-                text-anchor="middle"
-                fill="white"
-                font-family="'Avenir Next', Helvetica, Arial, sans-serif"
-                font-weight="500"
-                font-size="${SIZE * 0.5}">
-                ${initials}
-            </text>
+            ${text}
     </svg>`;
+
+module.exports = (initials, color) => svg(text(initials), color);
