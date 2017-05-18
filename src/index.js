@@ -24,6 +24,7 @@ const errorLogger = expressWinston.errorLogger({
         new winston.transports.Console({
             json: true,
             colorize: false,
+            stringify: obj => JSON.stringify(obj),
         }),
     ],
 });
