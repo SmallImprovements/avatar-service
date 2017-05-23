@@ -41,7 +41,7 @@ module.exports = app.get(
             return true;
         })();
         if (!isValid) {
-            res.status(400).send({ message: 'Invalid requests parameters' });
+            res.status(400).send('Invalid requests parameters');
             return;
         }
         next();
