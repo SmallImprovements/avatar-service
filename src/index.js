@@ -1,8 +1,6 @@
 const express = require('express');
-const app = express();
-const avatar = require('./avatar');
-const validate = require('./validate');
-const color = require('./color');
+const server = express();
+const app = require('./app');
 const expressWinston = require('express-winston');
 const winston = require('winston');
 
@@ -29,24 +27,13 @@ const errorLogger = expressWinston.errorLogger({
     ],
 });
 
-app.use(requestLogger);
-
-app.get('/error', function(req, res) {
+server.use(requestLogger);
+server.get('/_error', (req, res) => {
+    // temporary route for testing error behaviour and logging
     throw new Error('boom');
 });
-
-app.get('/:index/:initials.svg', function(req, res) {
-    const { initials, index } = req.params;
-    const avatarColor = color(index);
-    if (!validate(initials)) {
-        res.status(400).send({});
-        return;
-    }
-    res.type('image/svg+xml').send(avatar(initials, avatarColor));
-});
-
-app.use(errorLogger);
-
-app.listen(port, function() {
+server.use(app);
+server.use(errorLogger);
+server.listen(port, () => {
     console.log('App is running');
 });
