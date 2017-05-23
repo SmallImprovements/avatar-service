@@ -4,6 +4,8 @@ before_install:
 language: node_js
 node_js:
   - "7"
+notifications:
+  email: false
 deploy:
   provider: gae
   keyfile: client-secret.json
