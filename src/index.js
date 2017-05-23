@@ -28,6 +28,7 @@ const errorLogger = expressWinston.errorLogger({
 });
 
 server.use(requestLogger);
+server.get('/_ah/health', (req, res) => res.send(200));
 server.get('/_error', (req, res) => {
     // temporary route for testing error behaviour and logging
     throw new Error('boom');
