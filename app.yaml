@@ -1,2 +1,4 @@
 runtime: nodejs
 env: flex
+resources:
+  cpu: 0.1
