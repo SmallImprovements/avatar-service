@@ -32,7 +32,7 @@ const svg = (initials, color) => {
 };
 
 module.exports = app.get(
-    '/:index/:initials.svg',
+    '/api/avatars/:index/:initials.svg',
     (req, res, next) => {
         const isValid = (() => {
             const { initials } = req.params;
