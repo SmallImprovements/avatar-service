@@ -4,7 +4,7 @@ const app = require('./app');
 const expressWinston = require('express-winston');
 const winston = require('winston');
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 80;
 
 const requestLogger = expressWinston.logger({
     transports: [
