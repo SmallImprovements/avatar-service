@@ -36,5 +36,5 @@ server.get('/_error', (req, res) => {
 server.use(app);
 server.use(errorLogger);
 server.listen(port, () => {
-    console.log('App is running');
+    console.log(`App is running on port: ${port}`);
 });
