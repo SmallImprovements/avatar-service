@@ -7,8 +7,8 @@ node_js:
 script: npm test
 notifications:
   email: false
-deploy:
-  provider: gae
-  keyfile: client-secret.json
-  project: micro-test-small-improvements
-  no_promote: true
+# deploy:
+#   provider: gae
+#   keyfile: client-secret.json
+#   project: micro-test-small-improvements
+#   no_promote: true
