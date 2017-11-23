@@ -31,6 +31,20 @@ describe('Avatar service', () => {
                 .expect('Content-Type', /image\/svg\+xml/)
                 .end(done);
         });
+        it('should support URI-encoded characters', done => {
+            request(app)
+                .get(BASE_URL + `/5/${encodeURIComponent('ÅÇ')}.svg`)
+                .expect(200)
+                .expect('Content-Type', /image\/svg\+xml/)
+                .end(done);
+        });
+        it('should support special characters', done => {
+            request(app)
+                .get(BASE_URL + '/5/ÅÇ.svg')
+                .expect(200)
+                .expect('Content-Type', /image\/svg\+xml/)
+                .end(done);
+        });
         it('should render an SVG element', done => {
             request(app)
                 .get(BASE_URL + '/5/KL.svg')
