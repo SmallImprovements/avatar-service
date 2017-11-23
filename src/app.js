@@ -37,7 +37,7 @@ module.exports = app.get(
     '/api/avatars/:index/:initials.svg',
     (req, res, next) => {
         const isValid = (() => {
-            const initials = decodeURIComponent(req.params.initials);
+            const { initials } = req.params;
             if (typeof initials !== 'string') return false;
             if (initials.length < 1 || initials.length > 2) return false;
             return true;
