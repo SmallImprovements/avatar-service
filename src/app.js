@@ -1,8 +1,10 @@
 const express = require('express');
-const app = express();
+const compression = require('compression');
 const path = require('path');
 const textToSVG = require('text-to-svg').loadSync(path.resolve(__dirname, 'font.woff'));
 const COLOR = require('./color');
+const app = express();
+app.use(compression());
 
 const SIZE = 400;
 const FONT_SIZE = SIZE * 0.5;

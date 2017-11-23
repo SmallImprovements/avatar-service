@@ -5,6 +5,7 @@
     "test": "mocha src/*.test.js"
   },
   "dependencies": {
+    "compression": "^1.7.1",
     "express": "^4.15.3",
     "express-winston": "^2.4.0",
     "text-to-svg": "3.1.0",
