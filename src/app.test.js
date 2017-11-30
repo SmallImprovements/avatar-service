@@ -62,6 +62,15 @@ describe('Avatar service', () => {
                 });
         });
     });
+    describe('PNG rendering', () => {
+        it('should render an PNG element', done => {
+            request(app)
+                .get(BASE_URL + '/5/KL.png')
+                .expect(200)
+                .expect('Content-Type', /image\/png/)
+                .end(done);
+        });
+    });
     describe('Request validation', () => {
         it('should return an error if initials are longer then 2 chars', done => {
             request(app)
