@@ -1,6 +1,15 @@
 language: node_js
 node_js:
   - "7"
+addons:
+  apt:
+    packages:
+    - libcairo2-dev 
+    - libjpeg8-dev 
+    - libpango1.0-dev 
+    - libgif-dev 
+    - build-essential 
+    - g++
 script: npm test
 notifications:
   email: false
