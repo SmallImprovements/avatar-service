@@ -3,7 +3,7 @@ const compression = require('compression');
 const path = require('path');
 const textToSVG = require('text-to-svg').loadSync(path.resolve(__dirname, 'font.woff'));
 const COLOR = require('./color');
-const svg2img = require('svg2img');
+const sharp = require('sharp');
 const app = express();
 app.use(compression());
 
@@ -48,20 +48,12 @@ const handleSvg = compose((avatar, req, res) => {
 
 const handlePng = compose(
     (avatarPromise, svg, req, res) => {
-        avatarPromise
-            .then(avatar => res.type('image/png').send(avatar))
-            .catch(err => res.status(500).send('Internal error'));
+        avatarPromise.then(avatar => res.type('image/png').send(avatar)).catch(err => res.status(500).send(err));
     },
     avatarSvg => {
-        return new Promise((resolve, reject) => {
-            svg2img(avatarSvg, (error, avatar) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(avatar);
-                }
-            });
-        });
+        return sharp(new Buffer(avatarSvg))
+            .png()
+            .toBuffer();
     },
     toSvg
 );
