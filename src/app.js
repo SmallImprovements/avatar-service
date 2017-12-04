@@ -4,6 +4,7 @@ const path = require('path');
 const textToSVG = require('text-to-svg').loadSync(path.resolve(__dirname, 'font.woff'));
 const COLOR = require('./color');
 const sharp = require('sharp');
+const he = require('he');
 const app = express();
 app.use(compression());
 
@@ -12,7 +13,12 @@ const FONT_SIZE = SIZE * 0.5;
 
 const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args), ...args));
 
-const svg = (initials, color) => {
+const allGlyphsAvailable = initials => {
+    const { font } = textToSVG;
+    return !initials.split('').some(char => font.charToGlyph(char).index === 0);
+};
+
+const pathSvg = (initials, color) => {
     const path = textToSVG.getPath(initials, {
         x: FONT_SIZE,
         y: FONT_SIZE,
@@ -35,6 +41,16 @@ const svg = (initials, color) => {
             ${path}
     </svg>`;
 };
+
+const textSvg = (initials, color) => {
+    return `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${SIZE} ${SIZE}">
+        <rect x="0" y="0" width="${SIZE}" height="${SIZE}" fill="${color}" stroke-width="0" />
+        <text x="50%" y="68%" text-anchor="middle" fill="white" font-family="sans-serif" font-size="${SIZE /
+            2}">${he.escape(initials)}</text>
+    </svg>`;
+};
+
+const svg = (initials, color) => (allGlyphsAvailable(initials) ? pathSvg(initials, color) : textSvg(initials, color));
 
 const toSvg = (req, res) => {
     const { initials, index } = req.params;
