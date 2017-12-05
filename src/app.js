@@ -18,7 +18,7 @@ const allGlyphsAvailable = initials => {
     return !initials.split('').some(char => font.charToGlyph(char).index === 0);
 };
 
-const pathSvg = (initials, color) => {
+const svgPath = (initials, color) => {
     const path = textToSVG.getPath(initials, {
         x: FONT_SIZE,
         y: FONT_SIZE,
@@ -27,30 +27,45 @@ const pathSvg = (initials, color) => {
         attributes: { fill: '#FFFFFF' },
     });
     return `<svg
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-        viewBox="0 0 ${SIZE} ${SIZE}" width="${SIZE}" height="${SIZE}">
-            <rect
-                x="0"
-                y="0"
-                width="${SIZE}"
-                height="${SIZE}"
-                fill="${color || '#ffeeee'}"
-                stroke-width="0"
-            />
-            ${path}
-    </svg>`;
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    viewBox="0 0 ${SIZE} ${SIZE}" width="${SIZE}" height="${SIZE}">
+        <rect
+            x="0"
+            y="0"
+            width="${SIZE}"
+            height="${SIZE}"
+            fill="${color || '#ffeeee'}"
+            stroke-width="0"
+        />
+        ${path}
+</svg>`;
 };
 
-const textSvg = (initials, color) => {
-    return `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${SIZE} ${SIZE}">
-        <rect x="0" y="0" width="${SIZE}" height="${SIZE}" fill="${color}" stroke-width="0" />
-        <text x="50%" y="68%" text-anchor="middle" fill="white" font-family="sans-serif" font-size="${SIZE /
-            2}">${he.escape(initials)}</text>
-    </svg>`;
-};
+const svgText = (initials, color) => `<text
+    x="50%"
+    y="68%"
+    text-anchor="middle"
+    fill="white"
+    font-family="sans-serif"
+    font-size="${SIZE / 2}">
+        ${he.escape(initials)}
+</text>`;
 
-const svg = (initials, color) => (allGlyphsAvailable(initials) ? pathSvg(initials, color) : textSvg(initials, color));
+const svg = (initials, color) => `<svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    viewBox="0 0 ${SIZE} ${SIZE}" width="${SIZE}" height="${SIZE}">
+        <rect
+            x="0"
+            y="0"
+            width="${SIZE}"
+            height="${SIZE}"
+            fill="${color || '#ffeeee'}"
+            stroke-width="0"
+        />
+        ${allGlyphsAvailable(initials) ? svgPath(initials, color) : svgText(initials, color)}
+</svg>`;
 
 const toSvg = (req, res) => {
     const { initials, index } = req.params;
