@@ -41,13 +41,23 @@ describe('Avatar service', () => {
                     else done(new Error());
                 });
         });
-        it('should render a path element', done => {
+        it('should render a path element for available glyphs', done => {
             request(app)
                 .get(BASE_URL + '/12/PF.svg')
                 .expect(200)
                 .parse(binaryParser)
                 .end((err, res) => {
                     if (/<path(.|\n)*?\/>/.test(res.body.toString())) done();
+                    else done(new Error());
+                });
+        });
+        it('should render a text element for unavailable glyphs', done => {
+            request(app)
+                .get(BASE_URL + '/12/P%E6%A0%91.svg')
+                .expect(200)
+                .parse(binaryParser)
+                .end((err, res) => {
+                    if (/<text(.|\n)*?\>/.test(res.body.toString())) done();
                     else done(new Error());
                 });
         });
