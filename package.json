@@ -7,13 +7,13 @@
   "dependencies": {
     "compression": "^1.7.1",
     "express": "^4.15.3",
-    "express-winston": "^2.4.0",
+    "express-winston": "^2.6.0",
     "sharp": "^0.18.4",
     "text-to-svg": "3.1.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "mocha": "^3.4.1",
+    "mocha": "^5.2.0",
     "prettier": "^1.8.2",
     "supertest": "^3.0.0"
   }
