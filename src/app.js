@@ -64,7 +64,7 @@ const handlePng = compose(
             .catch(err => res.status(500).send(err));
     },
     avatarSvg => {
-        return sharp(new Buffer(avatarSvg))
+        return sharp(Buffer.from(avatarSvg))
             .png()
             .toBuffer();
     },
