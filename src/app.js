@@ -9,6 +9,9 @@ app.use(compression());
 
 const SIZE = 400;
 const FONT_SIZE = SIZE * 0.5;
+const HEADERS = {
+    'Cache-Control': 'public, max-age=31536000',
+};
 
 const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args), ...args));
 
@@ -43,12 +46,22 @@ const toSvg = (req, res) => {
 };
 
 const handleSvg = compose((avatar, req, res) => {
-    res.type('image/svg+xml').send(avatar);
+    res
+        .type('image/svg+xml')
+        .set(HEADERS)
+        .send(avatar);
 }, toSvg);
 
 const handlePng = compose(
     (avatarPromise, svg, req, res) => {
-        avatarPromise.then(avatar => res.type('image/png').send(avatar)).catch(err => res.status(500).send(err));
+        avatarPromise
+            .then(avatar =>
+                res
+                    .type('image/png')
+                    .set(HEADERS)
+                    .send(avatar)
+            )
+            .catch(err => res.status(500).send(err));
     },
     avatarSvg => {
         return sharp(new Buffer(avatarSvg))
