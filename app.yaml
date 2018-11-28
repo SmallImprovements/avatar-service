@@ -1,5 +1,2 @@
-runtime: nodejs
-env: flex
+runtime: nodejs8
 service: avatars
-resources:
-  cpu: 0.1
