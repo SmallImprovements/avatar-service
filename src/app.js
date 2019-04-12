@@ -1,7 +1,7 @@
 const express = require('express');
 const compression = require('compression');
 const path = require('path');
-const textToSVG = require('text-to-svg').loadSync(path.resolve(__dirname, 'font.woff'));
+const textToSVG = require('text-to-svg').loadSync(path.resolve(__dirname, '..', 'font.woff'));
 const COLOR = require('./color');
 const sharp = require('sharp');
 const app = express();
