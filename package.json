@@ -2,7 +2,10 @@
   "name": "avatar-service",
   "scripts": {
     "start": "node src/index.js",
-    "test": "mocha src/*.test.js"
+    "decrypt-start": "npm run decrypt-font && npm start",
+    "test": "mocha src/*.test.js",
+    "encrypt-font": "openssl enc -k \"$FONT_KEY\" -aes-256-cbc -md sha256 -in font.woff -out font.woff.enc",
+    "decrypt-font": "openssl enc -d -k \"$FONT_KEY\" -aes-256-cbc -md sha256 -in font.woff.enc -out font.woff"
   },
   "dependencies": {
     "compression": "^1.7.4",
@@ -16,5 +19,6 @@
     "mocha": "^5.2.0",
     "prettier": "^1.8.2",
     "supertest": "^3.0.0"
-  }
+  },
+  "private": true
 }
