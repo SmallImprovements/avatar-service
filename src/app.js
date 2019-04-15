@@ -9,6 +9,7 @@ app.use(compression());
 
 const SIZE = 400;
 const FONT_SIZE = SIZE * 0.5;
+const BASELINE_OFFSET_MULTIPLIER = 0.035;
 const HEADERS = {
     'Cache-Control': 'public, max-age=31536000',
 };
@@ -16,13 +17,21 @@ const HEADERS = {
 const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args), ...args));
 
 const svg = (initials, color) => {
-    const path = textToSVG.getPath(initials, {
-        x: FONT_SIZE,
-        y: FONT_SIZE,
+    const metrics = textToSVG.getMetrics(initials, {
         fontSize: FONT_SIZE,
+    });
+
+    const targetWidth = SIZE * 0.9;
+    const usedFontSize = metrics.width < targetWidth ? FONT_SIZE : FONT_SIZE * (targetWidth / metrics.width);
+
+    const path = textToSVG.getPath(initials, {
+        x: SIZE / 2,
+        y: SIZE / 2 + usedFontSize * BASELINE_OFFSET_MULTIPLIER,
+        fontSize: usedFontSize,
         anchor: 'center middle',
         attributes: { fill: '#FFFFFF' },
     });
+
     return `<svg
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
