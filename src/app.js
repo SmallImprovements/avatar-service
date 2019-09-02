@@ -54,12 +54,14 @@ const toSvg = (req, res) => {
     return svg(initials, color);
 };
 
-const handleSvg = compose((avatar, req, res) => {
-    res
-        .type('image/svg+xml')
-        .set(HEADERS)
-        .send(avatar);
-}, toSvg);
+const handleSvg = compose(
+    (avatar, req, res) => {
+        res.type('image/svg+xml')
+            .set(HEADERS)
+            .send(avatar);
+    },
+    toSvg
+);
 
 const handlePng = compose(
     (avatarPromise, svg, req, res) => {
