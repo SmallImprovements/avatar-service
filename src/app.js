@@ -12,6 +12,7 @@ const FONT_SIZE = SIZE * 0.5;
 const BASELINE_OFFSET_MULTIPLIER = 0.035;
 const HEADERS = {
     'Cache-Control': 'public, max-age=31536000',
+    'Content-Security-Policy': "default-src 'none'"
 };
 
 const compose = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args), ...args));
