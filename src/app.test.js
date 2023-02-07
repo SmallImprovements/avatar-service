@@ -11,7 +11,7 @@ binaryParser = (res, callback) => {
         res.data += chunk;
     });
     res.on('end', function() {
-        callback(null, new Buffer(res.data, 'binary'));
+        callback(null, Buffer.from(res.data, 'binary'));
     });
 };
 

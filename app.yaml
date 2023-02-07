@@ -1,4 +1,4 @@
-runtime: nodejs10
+runtime: nodejs18
 service: avatars
 instance_class: F1
 automatic_scaling:
