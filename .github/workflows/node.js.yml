@@ -19,6 +19,7 @@ jobs:
       with:
         node-version: 18.x
         cache: 'npm'
+    - run: curl -Ls https://github.com/githubnext/monaspace/raw/main/fonts/webfonts/MonaspaceArgon-Light.woff -o font.woff # Download test font
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
