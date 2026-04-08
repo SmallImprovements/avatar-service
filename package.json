@@ -8,17 +8,16 @@
     "decrypt-font": "openssl enc -d -k \"$FONT_KEY\" -aes-256-cbc -md sha256 -in font.woff.enc -out font.woff"
   },
   "dependencies": {
-    "compression": "1.7.4",
-    "express": "4.22.0",
-    "express-winston": "2.6.0",
-    "sharp": "0.32.6",
-    "text-to-svg": "^3.1.5",
-    "winston": "2.4.7"
+    "compression": "1.8.1",
+    "express": "5.1.0",
+    "sharp": "0.34.5",
+    "text-to-svg": "3.1.5",
+    "winston": "3.19.0"
   },
   "devDependencies": {
-    "mocha": "10.8.2",
-    "prettier": "1.19.1",
-    "supertest": "4.0.2"
+    "mocha": "11.7.5",
+    "prettier": "3.8.1",
+    "supertest": "7.2.2"
   },
   "private": true
 }
